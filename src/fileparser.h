@@ -17,6 +17,10 @@ public:
 	explicit FileParser (QObject *parent = 0);
 	virtual ~FileParser ();
 
+	QString lastError () const;
+
+	bool open ();
+
 	QString fileName () const;
 	void setFileName (const QString &fileName);
 

@@ -34,3 +34,14 @@ int FileParser::size () const
 {
 	return file_->size ();
 }
+
+QString FileParser::lastError() const
+{
+	return file_->errorString ();
+}
+
+bool FileParser::open()
+{
+	return file_->open (QIODevice::ReadOnly);
+}
+

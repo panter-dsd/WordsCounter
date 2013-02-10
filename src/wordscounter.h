@@ -25,6 +25,10 @@ public:
 private:
 	Q_DISABLE_COPY (WordsCounter)
 
+private Q_SLOTS:
+	void updateButtons ();
+
 private:
 	std::auto_ptr<Ui::WordsCounter> ui_;
+	class FileParser *fileParser_;
 };

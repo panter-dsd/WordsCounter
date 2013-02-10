@@ -15,6 +15,16 @@ public:
 	explicit FileParser (QObject *parent = 0);
 	virtual ~FileParser ();
 
+	QString fileName () const {
+		return fileName_;
+	}
+	void setFileName (const QString &fileName) {
+		fileName_ = fileName;
+	}
+
 private:
 	Q_DISABLE_COPY (FileParser)
+
+private:
+	QString fileName_;
 };

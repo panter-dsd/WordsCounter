@@ -29,6 +29,12 @@ private Q_SLOTS:
 	void updateButtons ();
 
 private:
+	void init ();
+
+private:
 	std::auto_ptr<Ui::MainWindow> ui_;
+	typedef QVector<class QThread*> Threads;
+	Threads threads_;
 	class FileParser *fileParser_;
+	class WordsCounter *wordsCounter_;
 };

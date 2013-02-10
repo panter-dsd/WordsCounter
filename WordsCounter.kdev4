@@ -1,0 +1,4 @@
+[Project]
+Name=WordsCounter
+Manager=KDevCMakeManager
+VersionControl=kdevgit

@@ -5,12 +5,12 @@
 
 #include "fileparser.h"
 
-#include "ui_wordscounter.h"
-#include "wordscounter.h"
+#include "ui_mainwindow.h"
+#include "mainwindow.h"
 
-WordsCounter::WordsCounter (QWidget *parent, Qt::WindowFlags flags)
+MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow (parent, flags)
-	, ui_ (new Ui::WordsCounter)
+	, ui_ (new Ui::MainWindow)
 	, fileParser_ (new FileParser (this))
 {
 	ui_->setupUi (this);
@@ -18,10 +18,10 @@ WordsCounter::WordsCounter (QWidget *parent, Qt::WindowFlags flags)
 	updateButtons ();
 }
 
-WordsCounter::~WordsCounter()
+MainWindow::~MainWindow()
 {}
 
-void WordsCounter::updateButtons()
+void MainWindow::updateButtons()
 {
 	const bool isFileSelected = !fileParser_->fileName().isEmpty();
 	ui_->changeCalculateState_->setEnabled (isFileSelected);

@@ -11,24 +11,24 @@
 
 namespace Ui
 {
-	class WordsCounter;
+	class MainWindow;
 }
 
-class WordsCounter : public QMainWindow
+class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	explicit WordsCounter (QWidget *parent = 0, Qt::WindowFlags flags = 0);
-	virtual ~WordsCounter();
+	explicit MainWindow (QWidget *parent = 0, Qt::WindowFlags flags = 0);
+	virtual ~MainWindow();
 
 private:
-	Q_DISABLE_COPY (WordsCounter)
+	Q_DISABLE_COPY (MainWindow)
 
 private Q_SLOTS:
 	void updateButtons ();
 
 private:
-	std::auto_ptr<Ui::WordsCounter> ui_;
+	std::auto_ptr<Ui::MainWindow> ui_;
 	class FileParser *fileParser_;
 };

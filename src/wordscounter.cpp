@@ -3,7 +3,7 @@
  * @date 10.02.2013
  */
 
-#include "WordsCounter.h"
+#include "wordscounter.h"
 
 WordsCounter::WordsCounter (QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow (parent, flags)
@@ -13,4 +13,4 @@ WordsCounter::WordsCounter (QWidget *parent, Qt::WindowFlags flags)
 WordsCounter::~WordsCounter()
 {}
 
-#include "WordsCounter.moc"
+#include "wordscounter.moc"

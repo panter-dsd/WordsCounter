@@ -6,12 +6,11 @@ INCLUDE_DIRECTORIES(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
 SET(WordsCounter_SORCES
     src/main.cpp
-    src/WordsCounter.cpp
+    src/wordscounter.cpp
 )
 
 SET(WordsCounter_HEADRES
-    src/main.cpp
-    src/WordsCounter.cpp
+    src/Wordscounter.h
 )
 
 QT4_AUTOMOC(${WordsCounter_SORCES})

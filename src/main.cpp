@@ -5,7 +5,7 @@
 
 #include <QtGui/QApplication>
 
-#include "WordsCounter.h"
+#include "wordscounter.h"
 
 int main (int argc, char **argv)
 {

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <QtCore/qobject.h>
+#include <QtCore/QObject>
 
 class WordsCounter : public QObject
 {

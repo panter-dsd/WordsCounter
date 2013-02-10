@@ -24,6 +24,8 @@ public:
 
 Q_SIGNALS:
 	void wordFound (const QString &word);
+	void progress (qint64 current, qint64 total);
+	void finished ();
 
 private:
 	Q_DISABLE_COPY (FileParser)

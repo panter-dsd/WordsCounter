@@ -5,6 +5,8 @@
 
 #include <QtCore/QThread>
 
+#include <QtGui/QCloseEvent>
+
 #include "fileparser.h"
 #include "wordscounter.h"
 
@@ -25,10 +27,6 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 
 MainWindow::~MainWindow()
 {
-	for (Threads::const_iterator it = threads_.begin(),
-			end = threads_.end(); it != end; ++it) {
-		(*it)->quit ();
-	}
 }
 
 void MainWindow::init()
@@ -52,4 +50,14 @@ void MainWindow::updateButtons()
 	const bool isFileSelected = !fileParser_->fileName().isEmpty();
 	ui_->changeCalculateState_->setEnabled (isFileSelected);
 	ui_->saveResult_->setEnabled (isFileSelected);
+}
+
+void MainWindow::closeEvent (QCloseEvent *e)
+{
+	for (Threads::const_iterator it = threads_.begin(),
+			end = threads_.end(); it != end; ++it) {
+		(*it)->quit ();
+	}
+
+	QWidget::closeEvent(e);
 }

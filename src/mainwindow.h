@@ -22,6 +22,9 @@ public:
 	explicit MainWindow (QWidget *parent = 0, Qt::WindowFlags flags = 0);
 	virtual ~MainWindow();
 
+protected:
+	virtual void closeEvent (QCloseEvent *);
+
 private:
 	Q_DISABLE_COPY (MainWindow)
 

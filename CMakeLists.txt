@@ -8,11 +8,13 @@ SET(WordsCounter_SORCES
     src/main.cpp
     src/mainwindow.cpp
     src/fileparser.cpp
+    src/wordscounter.cpp
 )
 
 SET(WordsCounter_HEADRES
     src/mainwindow.h
     src/fileparser.h
+    src/wordscounter.h
 )
 
 SET(WordsCounter_UI

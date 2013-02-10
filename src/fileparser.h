@@ -22,6 +22,9 @@ public:
 		fileName_ = fileName;
 	}
 
+Q_SIGNALS:
+	void wordFound (const QString &word);
+
 private:
 	Q_DISABLE_COPY (FileParser)
 

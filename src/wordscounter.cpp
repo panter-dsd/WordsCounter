@@ -15,5 +15,3 @@ WordsCounter::WordsCounter (QWidget *parent, Qt::WindowFlags flags)
 
 WordsCounter::~WordsCounter()
 {}
-
-#include "wordscounter.moc"

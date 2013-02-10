@@ -1,11 +1,21 @@
-project(WordsCounter)
-cmake_minimum_required(VERSION 2.6)
-find_package(Qt4 REQUIRED)
+PROJECT(WordsCounter)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+FIND_PACKAGE(Qt4 REQUIRED)
+INCLUDE_DIRECTORIES(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
-set(WordsCounter_SRCS WordsCounter.cpp main.cpp)
-qt4_automoc(${WordsCounter_SRCS})
-add_executable(WordsCounter ${WordsCounter_SRCS})
-target_link_libraries(WordsCounter ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
-install(TARGETS WordsCounter RUNTIME DESTINATION bin)
+SET(WordsCounter_SORCES
+    src/main.cpp
+    src/WordsCounter.cpp
+)
+
+SET(WordsCounter_HEADRES
+    src/main.cpp
+    src/WordsCounter.cpp
+)
+
+QT4_AUTOMOC(${WordsCounter_SORCES})
+ADD_EXECUTABLE(WordsCounter ${WordsCounter_SORCES})
+TARGET_LINK_LIBRARIES(WordsCounter ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+
+INSTALL(TARGETS WordsCounter RUNTIME DESTINATION bin)

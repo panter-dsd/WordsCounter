@@ -29,7 +29,9 @@ private:
 	Q_DISABLE_COPY (MainWindow)
 
 private Q_SLOTS:
+	void updateWindowTitle ();
 	void updateButtons ();
+	void selectFile ();
 
 private:
 	void init ();

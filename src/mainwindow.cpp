@@ -6,6 +6,7 @@
 #include <QtCore/QThread>
 
 #include <QtGui/QCloseEvent>
+#include <QtGui/QFileDialog>
 
 #include "fileparser.h"
 #include "wordscounter.h"
@@ -21,7 +22,12 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 {
 	ui_->setupUi (this);
 
+	connect (ui_->selectFile_,
+			 SIGNAL (clicked ()),
+			 SLOT (selectFile()));
+
 	init ();
+	updateWindowTitle();
 	updateButtons ();
 }
 
@@ -59,5 +65,31 @@ void MainWindow::closeEvent (QCloseEvent *e)
 		(*it)->quit ();
 	}
 
-	QWidget::closeEvent(e);
+	QWidget::closeEvent (e);
+}
+
+void MainWindow::selectFile()
+{
+	const QString fileName = QFileDialog::getOpenFileName (this,
+							 tr ("Open file"),
+							 QDir::homePath());
+
+	if (!fileName.isEmpty()) {
+		fileParser_->setFileName (fileName);
+		updateWindowTitle ();
+		updateButtons ();
+	}
+}
+
+void MainWindow::updateWindowTitle()
+{
+	QString title = tr ("Worlds parser");
+
+	const QString fileName = fileParser_->fileName ();
+
+	if (!fileName.isEmpty()) {
+		title += ": " + fileName;
+	}
+
+	setWindowTitle (title);
 }

@@ -31,9 +31,14 @@ Q_SIGNALS:
 	void progress (int current, int total);
 	void finished ();
 
+public Q_SLOTS:
+	void start ();
+	void stop ();
+
 private:
 	Q_DISABLE_COPY (FileParser)
 
 private:
 	std::auto_ptr<class QFile> file_;
+	bool running_;
 };

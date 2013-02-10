@@ -29,6 +29,9 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	connect (fileParser_, SIGNAL (progress (int, int)),
 			 ui_->progressBar_, SLOT (setValue (int)));
 
+	connect (ui_->changeCalculateState_, SIGNAL (clicked ()),
+			 fileParser_, SLOT (start()));
+
 	init ();
 	updateWindowTitle();
 	updateButtons ();
@@ -79,6 +82,7 @@ void MainWindow::selectFile()
 
 	if (!fileName.isEmpty()) {
 		fileParser_->setFileName (fileName);
+		fileParser_->open ();
 		ui_->progressBar_->setRange (0, fileParser_->size ());
 		updateWindowTitle ();
 		updateButtons ();

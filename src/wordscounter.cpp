@@ -15,3 +15,8 @@ WordsCounter::~WordsCounter()
 {
 
 }
+
+void WordsCounter::appendWord (const QString &word)
+{
+	Q_UNUSED (word)
+}

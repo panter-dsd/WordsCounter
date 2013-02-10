@@ -7,6 +7,13 @@
 
 #include <QtGui/QMainWindow>
 
+#include <auto_ptr.h>
+
+namespace Ui
+{
+	class WordsCounter;
+}
+
 class WordsCounter : public QMainWindow
 {
 	Q_OBJECT
@@ -14,4 +21,10 @@ class WordsCounter : public QMainWindow
 public:
 	WordsCounter (QWidget *parent = 0, Qt::WindowFlags flags = 0);
 	virtual ~WordsCounter();
+
+private:
+	Q_DISABLE_COPY (WordsCounter)
+
+private:
+	std::auto_ptr<Ui::WordsCounter> ui_;
 };

@@ -58,7 +58,8 @@ void MainWindow::init()
 	wordsCounter_->moveToThread (thread);
 
 	connect (fileParser_, SIGNAL (wordFound (QString)),
-			 wordsCounter_, SLOT (appendWord (QString)));
+			 wordsCounter_, SLOT (appendWord (QString)),
+			 Qt::DirectConnection);
 }
 
 void MainWindow::updateButtons()
@@ -107,6 +108,17 @@ void MainWindow::updateWindowTitle()
 
 void MainWindow::updateProgress()
 {
-	ui_->resultsView_->clear ();
-	ui_->resultsView_->addItems (wordsCounter_->topList ());
+	ui_->wordsCountLabel_->setText (QString::number (wordsCounter_->wordsCount()));
+
+	int row = 0;
+
+	foreach (const QString &word, wordsCounter_->topList ()) {
+		if (ui_->resultsView_->count() == row) {
+			ui_->resultsView_->addItem (word);
+		} else {
+			ui_->resultsView_->item (row)->setText (word);
+		}
+
+		++row;
+	}
 }

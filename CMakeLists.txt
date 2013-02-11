@@ -6,6 +6,9 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wno-long-long")
 FIND_PACKAGE(Qt4 REQUIRED)
 INCLUDE_DIRECTORIES(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
+FIND_PACKAGE(Boost 1.45.0 REQUIRED)
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
+
 SET(WordsCounter_SORCES
     src/main.cpp
     src/mainwindow.cpp

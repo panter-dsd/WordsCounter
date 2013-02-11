@@ -4,6 +4,7 @@
  */
 
 #include <QtCore/QThread>
+#include <QtCore/QDateTime>
 
 #include <QtGui/QCloseEvent>
 #include <QtGui/QFileDialog>
@@ -19,6 +20,7 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	, ui_ (new Ui::MainWindow)
 	, fileParser_ (new FileParser)
 	, wordsCounter_ (new WordsCounter)
+	, started_ (new QDateTime)
 {
 	ui_->setupUi (this);
 
@@ -29,6 +31,9 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	connect (fileParser_, SIGNAL (progress (int, int)),
 			 ui_->progressBar_, SLOT (setValue (int)));
 
+	connect (ui_->changeCalculateState_,
+			 SIGNAL (clicked ()),
+			 SLOT (startWork()));
 	connect (ui_->changeCalculateState_, SIGNAL (clicked ()),
 			 fileParser_, SLOT (start()));
 
@@ -110,6 +115,11 @@ void MainWindow::updateProgress()
 {
 	ui_->wordsCountLabel_->setText (QString::number (wordsCounter_->wordsCount()));
 
+	const QDateTime current = QDateTime::currentDateTime();
+
+	const int elapsed = started_->secsTo (current);
+
+
 	int row = 0;
 
 	foreach (const QString &word, wordsCounter_->topList ()) {
@@ -121,4 +131,10 @@ void MainWindow::updateProgress()
 
 		++row;
 	}
+}
+
+void MainWindow::startWork()
+{
+	*started_ =  QDateTime::currentDateTime ();
+	ui_->startedLabel_->setText (started_->toString ("dd.MM.yyyy hh:mm:ss"));
 }

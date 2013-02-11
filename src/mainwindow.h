@@ -34,6 +34,7 @@ private Q_SLOTS:
 	void selectFile ();
 
 	void updateProgress ();
+	void startWork ();
 
 private:
 	void init ();
@@ -44,4 +45,5 @@ private:
 	Threads threads_;
 	class FileParser *fileParser_;
 	class WordsCounter *wordsCounter_;
+	std::auto_ptr<class QDateTime> started_;
 };

@@ -5,6 +5,7 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QStringList>
+#include <QtCore/QMutex>
 
 #include <boost/bind.hpp>
 
@@ -24,6 +25,7 @@ namespace
 
 WordsCounter::WordsCounter (QObject *parent)
 	: QObject (parent)
+	, mutex_ (new QMutex)
 {
 
 }
@@ -41,6 +43,8 @@ int WordsCounter::wordsCount() const
 void WordsCounter::appendWord (const QString &word)
 {
 	qDebug () << word;
+
+	QMutexLocker locker (mutex_.get ());
 
 	Words::iterator it = words_.find (word);
 
@@ -69,6 +73,8 @@ void WordsCounter::updateTopList (const Words::const_iterator &updated)
 
 QStringList WordsCounter::topList() const
 {
+	QMutexLocker locker (mutex_.get ());
+
 	QStringList result;
 
 	for (TopList::const_reverse_iterator it = topList_.rbegin(),

@@ -9,6 +9,7 @@
 #include <QtCore/QMap>
 
 #include <list>
+#include <auto_ptr.h>
 
 typedef QMap<QString, int> Words;
 
@@ -16,11 +17,12 @@ class WordsCounter : public QObject
 {
 	Q_OBJECT
 
+	typedef std::list<Words::const_iterator> TopList;
+
+public:
 	enum {
 		TopListSize = 10
 	};
-
-	typedef std::list<Words::const_iterator> TopList;
 
 public:
 	explicit WordsCounter (QObject *parent = 0);
@@ -43,4 +45,5 @@ private:
 private:
 	Words words_;
 	TopList topList_;
+	std::auto_ptr<class QMutex> mutex_;
 };

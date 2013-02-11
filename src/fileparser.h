@@ -19,8 +19,6 @@ public:
 
 	QString lastError () const;
 
-	bool open ();
-
 	QString fileName () const;
 	void setFileName (const QString &fileName);
 

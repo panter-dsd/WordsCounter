@@ -76,13 +76,12 @@ void MainWindow::closeEvent (QCloseEvent *e)
 
 void MainWindow::selectFile()
 {
-	const QString fileName = QFileDialog::getOpenFileName (this,
+	const QFileInfo fi = QFileDialog::getOpenFileName (this,
 							 tr ("Open file"),
 							 QDir::homePath());
 
-	if (!fileName.isEmpty()) {
-		fileParser_->setFileName (fileName);
-		fileParser_->open ();
+	if (fi.exists() && fi.size() > 0) {
+		fileParser_->setFileName (fi.absoluteFilePath());
 		ui_->progressBar_->setRange (0, fileParser_->size ());
 		updateWindowTitle ();
 		updateButtons ();

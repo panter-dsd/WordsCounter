@@ -44,11 +44,6 @@ QString FileParser::lastError() const
 	return file_->errorString ();
 }
 
-bool FileParser::open()
-{
-	return file_->open (QIODevice::ReadOnly);
-}
-
 void FileParser::start()
 {
 	if (running_) {

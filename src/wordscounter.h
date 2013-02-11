@@ -6,6 +6,7 @@
 #pragma once
 
 #include <QtCore/QObject>
+#include <QtCore/QMap>
 
 class WordsCounter : public QObject
 {
@@ -20,4 +21,8 @@ public Q_SLOTS:
 
 private:
 	Q_DISABLE_COPY (WordsCounter)
+	
+private:
+	typedef QMap<QString, int> Words;
+	Words words_;
 };

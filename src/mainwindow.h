@@ -33,6 +33,8 @@ private Q_SLOTS:
 	void updateButtons ();
 	void selectFile ();
 
+	void updateProgress ();
+
 private:
 	void init ();
 

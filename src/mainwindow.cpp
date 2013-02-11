@@ -32,6 +32,10 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	connect (ui_->changeCalculateState_, SIGNAL (clicked ()),
 			 fileParser_, SLOT (start()));
 
+	connect (wordsCounter_,
+			 SIGNAL (wordsChanged()),
+			 SLOT (updateProgress()));
+
 	init ();
 	updateWindowTitle();
 	updateButtons ();
@@ -77,8 +81,8 @@ void MainWindow::closeEvent (QCloseEvent *e)
 void MainWindow::selectFile()
 {
 	const QFileInfo fi = QFileDialog::getOpenFileName (this,
-							 tr ("Open file"),
-							 QDir::homePath());
+						 tr ("Open file"),
+						 QDir::homePath());
 
 	if (fi.exists() && fi.size() > 0) {
 		fileParser_->setFileName (fi.absoluteFilePath());
@@ -99,4 +103,10 @@ void MainWindow::updateWindowTitle()
 	}
 
 	setWindowTitle (title);
+}
+
+void MainWindow::updateProgress()
+{
+	ui_->resultsView_->clear ();
+	ui_->resultsView_->addItems (wordsCounter_->topList ());
 }

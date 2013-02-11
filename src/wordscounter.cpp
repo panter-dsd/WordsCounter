@@ -53,7 +53,7 @@ void WordsCounter::appendWord (const QString &word)
 
 void WordsCounter::updateTopList (const Words::const_iterator &updated)
 {
-	topList_.removeAll (updated);
+	topList_.removeOne (updated);
 	TopList::iterator it = std::lower_bound (topList_.begin(),
 						   topList_.end(),
 						   updated,

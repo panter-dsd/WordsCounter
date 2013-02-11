@@ -4,15 +4,16 @@
  */
 
 #include <QtCore/QFile>
-#include <QtCore/QTextStream>
-#include <QtCore/QRegExp>
+#include <QtCore/QFileInfo>
 #include <QtCore/QDebug>
+#include <QtCore/QTextCodec>
+
+#include <boost/bind.hpp>
 
 #include "fileparser.h"
 
 FileParser::FileParser (QObject *parent)
 	: QObject (parent)
-	, file_ (new QFile)
 	, running_ (false)
 {
 
@@ -25,24 +26,39 @@ FileParser::~FileParser()
 
 QString FileParser::fileName() const
 {
-	return file_->fileName ();
+	return fileName_;
 }
 
 void FileParser::setFileName (const QString &fileName)
 {
-	file_->setFileName (fileName);
-	emit progress (0, file_->size ());
+	fileName_ = fileName;
+	emit progress (0, size ());
 }
 
 int FileParser::size () const
 {
-	return file_->size ();
+	return QFileInfo (fileName_).size ();
 }
 
 QString FileParser::lastError() const
 {
-	return file_->errorString ();
+	return lastError_;
 }
+
+class SetToFalse
+{
+public:
+	SetToFalse (bool &value) : value_ (value) {}
+	~SetToFalse () {
+		value_ = false;
+	}
+
+private:
+	Q_DISABLE_COPY (SetToFalse)
+
+private:
+	bool &value_;
+};
 
 void FileParser::start()
 {
@@ -51,23 +67,32 @@ void FileParser::start()
 	}
 
 	running_ = true;
+	SetToFalse setToFalse (running_);
 
-	QTextStream stream (file_.get ());
-	stream.setCodec ("Windows-1251");
+	QFile file (fileName_);
 
-	const QRegExp re ("[A-Z,a-z]*");
+	if (!file.open (QIODevice::ReadOnly)) {
+		lastError_ = file.errorString ();
+		running_ = false;
+		return;
+	}
 
-	while (running_) {
-		const QString line = stream.readLine ();
+	typedef std::vector<char> Buffer;
 
-		int pos = 0;
+	enum {BufferSize = 1024};
+	Buffer buffer (BufferSize, 0);
 
-		while ( (pos = re.indexIn (line, pos)) != -1) {
-			const int wordSize = re.matchedLength ();
-			emit wordFound (line.mid (pos, wordSize));
-			qDebug () << line.mid (pos, wordSize);
-			pos += wordSize;
+	while (running_ && !file.atEnd ()) {
+		const int readed = file.readLine (&buffer [0], BufferSize - 1);
+
+		emit progress (file.pos(), file.size ());
+
+		if (readed == BufferSize) {
+			lastError_ = tr ("Line longer that %1 symbols").arg (BufferSize);
+			break;
 		}
+
+		parseLine (&buffer [0], readed);
 	}
 }
 
@@ -76,3 +101,33 @@ void FileParser::stop()
 	running_ = false;
 }
 
+namespace
+{
+	bool isLetter (unsigned char c)
+	{
+		return (65 <= c && c <= 90)
+			   || (97 <= c && c <= 122)
+			   || 192 <= c;
+	}
+}
+
+void FileParser::parseLine (const char *const data, int dataSize)
+{
+	static const QTextCodec *codec = QTextCodec::codecForName ("Windows-1251");
+	const char *const end = data + dataSize;
+	const char *it = data;
+
+	while (it != end) {
+		it = std::find_if (it, end, boost::bind (&isLetter, _1));
+
+		if (it != end) {
+			const char *const endWord = std::find_if (it,
+										end,
+										boost::bind (
+											std::logical_not<bool>(),
+											boost::bind (&isLetter, _1)));
+			emit wordFound (codec->toUnicode (it, std::distance (it, endWord)));
+			it = endWord;
+		}
+	}
+}

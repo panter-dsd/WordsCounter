@@ -36,7 +36,10 @@ public Q_SLOTS:
 private:
 	Q_DISABLE_COPY (FileParser)
 
+	void parseLine (const char *const data, int dataSize);
+
 private:
-	std::auto_ptr<class QFile> file_;
 	bool running_;
+	QString fileName_;
+	QString lastError_;
 };

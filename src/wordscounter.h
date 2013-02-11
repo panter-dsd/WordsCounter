@@ -15,6 +15,8 @@ class WordsCounter : public QObject
 public:
 	explicit WordsCounter (QObject *parent = 0);
 	virtual ~WordsCounter();
+	
+	int wordsCount () const;
 
 public Q_SLOTS:
 	void appendWord (const QString &word);

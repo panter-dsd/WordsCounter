@@ -18,6 +18,11 @@ WordsCounter::~WordsCounter()
 
 }
 
+int WordsCounter::wordsCount() const
+{
+	return words_.size ();
+}
+
 void WordsCounter::appendWord (const QString &word)
 {
 	Words::iterator it = words_.find (word);

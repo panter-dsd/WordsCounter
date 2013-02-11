@@ -4,6 +4,7 @@
  */
 
 #include <QtCore/QDebug>
+#include <QtCore/QStringList>
 
 #include <boost/bind.hpp>
 
@@ -49,11 +50,12 @@ void WordsCounter::appendWord (const QString &word)
 
 	++ (*it);
 	updateTopList (it);
+	emit wordsChanged ();
 }
 
 void WordsCounter::updateTopList (const Words::const_iterator &updated)
 {
-	topList_.removeOne (updated);
+	topList_.remove (updated);
 	TopList::iterator it = std::lower_bound (topList_.begin(),
 						   topList_.end(),
 						   updated,
@@ -65,13 +67,13 @@ void WordsCounter::updateTopList (const Words::const_iterator &updated)
 	}
 }
 
-Words WordsCounter::topList() const
+QStringList WordsCounter::topList() const
 {
-	Words result;
+	QStringList result;
 
-	for (TopList::const_iterator it = topList_.begin(),
-			end = topList_.end(); it != end; ++it) {
-		result.insert (it->key(), it->value());
+	for (TopList::const_reverse_iterator it = topList_.rbegin(),
+			end = topList_.rend(); it != end; ++it) {
+		result.push_back (it->key());
 	}
 
 	return result;

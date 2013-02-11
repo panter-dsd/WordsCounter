@@ -7,7 +7,8 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QMap>
-#include <QtCore/QList>
+
+#include <list>
 
 typedef QMap<QString, int> Words;
 
@@ -19,14 +20,17 @@ class WordsCounter : public QObject
 		TopListSize = 10
 	};
 
-	typedef QList<Words::const_iterator> TopList;
+	typedef std::list<Words::const_iterator> TopList;
 
 public:
 	explicit WordsCounter (QObject *parent = 0);
 	virtual ~WordsCounter();
 
 	int wordsCount () const;
-	Words topList () const;
+	QStringList topList () const;
+
+Q_SIGNALS:
+	void wordsChanged ();
 
 public Q_SLOTS:
 	void appendWord (const QString &word);

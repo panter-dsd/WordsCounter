@@ -131,3 +131,4 @@ void FileParser::parseLine (const char *const data, int dataSize)
 		}
 	}
 }
+

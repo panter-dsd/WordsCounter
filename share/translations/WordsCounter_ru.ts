@@ -13,7 +13,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../../src/mainwindow.ui" line="14"/>
-        <location filename="../../src/mainwindow.cpp" line="130"/>
+        <location filename="../../src/mainwindow.cpp" line="132"/>
         <source>Words counter</source>
         <translation>Счетчик слов</translation>
     </message>
@@ -24,14 +24,14 @@
     </message>
     <message>
         <location filename="../../src/mainwindow.ui" line="34"/>
-        <location filename="../../src/mainwindow.cpp" line="85"/>
+        <location filename="../../src/mainwindow.cpp" line="87"/>
         <source>Start calculate</source>
         <translation>Запустить подсчет</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="219"/>
-        <location filename="../../src/mainwindow.cpp" line="227"/>
-        <location filename="../../src/mainwindow.cpp" line="232"/>
+        <location filename="../../src/mainwindow.cpp" line="221"/>
+        <location filename="../../src/mainwindow.cpp" line="229"/>
+        <location filename="../../src/mainwindow.cpp" line="234"/>
         <source>Save result</source>
         <translation>Сохранение результата</translation>
     </message>
@@ -66,33 +66,33 @@
         <translation>Результаты</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="84"/>
+        <location filename="../../src/mainwindow.cpp" line="86"/>
         <source>Stop calculate</source>
         <translation>Остановить подсчет</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="96"/>
+        <location filename="../../src/mainwindow.cpp" line="98"/>
         <source>Stop before quit</source>
         <translation>Остановите обработку перед закрытием</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="112"/>
-        <location filename="../../src/mainwindow.cpp" line="122"/>
+        <location filename="../../src/mainwindow.cpp" line="114"/>
+        <location filename="../../src/mainwindow.cpp" line="124"/>
         <source>Open file</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="123"/>
+        <location filename="../../src/mainwindow.cpp" line="125"/>
         <source>File not select or size is 0</source>
         <translation>Файл не выбран или его размер равен нулю</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="228"/>
+        <location filename="../../src/mainwindow.cpp" line="230"/>
         <source>Result is saved</source>
         <translation>Результат сохранен</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="233"/>
+        <location filename="../../src/mainwindow.cpp" line="235"/>
         <source>Error save result</source>
         <translation>Ошибка сохранения результата</translation>
     </message>

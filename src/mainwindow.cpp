@@ -12,6 +12,10 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QMessageBox>
 
+#include <algorithm>
+
+#include <boost/bind.hpp>
+
 #include "fileparser.h"
 #include "wordscounter.h"
 
@@ -97,10 +101,10 @@ void MainWindow::closeEvent (QCloseEvent *e)
 							  );
 		e->ignore ();
 	} else {
-		for (Threads::const_iterator it = threads_.begin(),
-				end = threads_.end(); it != end; ++it) {
-			(*it)->quit ();
-		}
+
+		std::for_each (threads_.begin(),
+					   threads_.end(),
+					   boost::bind (&QThread::quit, _1));
 
 		QWidget::closeEvent (e);
 	}

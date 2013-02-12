@@ -29,9 +29,11 @@ public:
 	virtual ~WordsCounter();
 
 	bool isEmpty () const;
-
+	
 	int wordsCount () const;
 	QStringList topList () const;
+
+	bool saveResult (const QString &fileName) const;
 
 Q_SIGNALS:
 	void wordsChanged ();

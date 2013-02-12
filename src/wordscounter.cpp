@@ -6,6 +6,8 @@
 #include <QtCore/QDebug>
 #include <QtCore/QStringList>
 #include <QtCore/QMutex>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 
 #include <boost/bind.hpp>
 
@@ -42,7 +44,7 @@ int WordsCounter::wordsCount() const
 
 void WordsCounter::appendWord (const QString &word)
 {
-	qDebug () << word;
+	//qDebug () << word;
 
 	QMutexLocker locker (mutex_.get ());
 
@@ -94,4 +96,31 @@ void WordsCounter::clear ()
 {
 	topList_.clear ();
 	words_.clear ();
+}
+
+bool WordsCounter::saveResult (const QString &fileName) const
+{
+	QFile file (fileName);
+
+	if (!file.open (QIODevice::WriteOnly)) {
+		return false;
+	}
+
+	QTextStream stream (&file);
+	stream.setCodec ("UTF-8");
+
+	typedef QMultiMap<int, QString> SortByCount;
+	SortByCount sortByCount;
+
+	for (Words::const_iterator it = words_.begin(),
+			end = words_.end(); it != end; ++it) {
+		sortByCount.insert (it.value(), it.key());
+	}
+
+	for (SortByCount::const_iterator it = sortByCount.begin(),
+			end = sortByCount.end(); it != end; ++it) {
+		stream << it.value() << ": " << it.key() << endl;
+	}
+
+	return true;
 }

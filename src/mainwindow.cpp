@@ -10,6 +10,7 @@
 
 #include <QtGui/QCloseEvent>
 #include <QtGui/QFileDialog>
+#include <QtGui/QMessageBox>
 
 #include "fileparser.h"
 #include "wordscounter.h"
@@ -31,6 +32,9 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	connect (ui_->selectFile_,
 			 SIGNAL (clicked ()),
 			 SLOT (selectFile()));
+	connect (ui_->saveResult_,
+			 SIGNAL (clicked ()),
+			 SLOT (saveResult()));
 
 	connect (fileParser_, SIGNAL (progress (int, int)),
 			 ui_->progressBar_, SLOT (setValue (int)));
@@ -186,4 +190,27 @@ void MainWindow::startWork()
 void MainWindow::workFinished()
 {
 	updateProgress (true);
+}
+
+void MainWindow::saveResult()
+{
+	const QString fileName = QFileDialog::getSaveFileName (this,
+							 tr ("Save result"),
+							 QDir::homePath());
+
+	if (!fileName.isEmpty()) {
+		const bool result = wordsCounter_->saveResult (fileName);
+
+		if (result) {
+			QMessageBox::information (this,
+									  tr ("Save result"),
+									  tr ("Result is saved")
+									 );
+		} else {
+			QMessageBox::critical (this,
+								   tr ("Save result"),
+								   tr ("Error save result")
+								  );
+		}
+	}
 }

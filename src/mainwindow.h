@@ -27,7 +27,7 @@ protected:
 
 private:
 	Q_DISABLE_COPY (MainWindow)
-	
+
 	int calculateEta (int elapsed) const;
 
 private Q_SLOTS:
@@ -38,13 +38,14 @@ private Q_SLOTS:
 	void updateProgress (bool forceUpdate = false);
 	void startWork ();
 	void workFinished ();
+	void saveResult ();
 
 private:
 	void init ();
 
 private:
 	std::auto_ptr<Ui::MainWindow> ui_;
-	typedef QVector<class QThread*> Threads;
+	typedef QVector<class QThread *> Threads;
 	Threads threads_;
 	class FileParser *fileParser_;
 	class WordsCounter *wordsCounter_;

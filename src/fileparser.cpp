@@ -68,8 +68,12 @@ void FileParser::start()
 
 	running_ = true;
 	SetToFalse setToFalse (running_);
+	
+	emit started ();
 
 	QFile file (fileName_);
+	
+	const int fileSize = file.size ();
 
 	if (!file.open (QIODevice::ReadOnly)) {
 		lastError_ = file.errorString ();
@@ -85,7 +89,7 @@ void FileParser::start()
 	while (running_ && !file.atEnd ()) {
 		const int readed = file.readLine (&buffer [0], BufferSize - 1);
 
-		emit progress (file.pos(), file.size ());
+		emit progress (file.pos(), fileSize);
 
 		if (readed == BufferSize) {
 			lastError_ = tr ("Line longer that %1 symbols").arg (BufferSize);
@@ -94,6 +98,9 @@ void FileParser::start()
 
 		parseLine (&buffer [0], readed);
 	}
+	
+	emit progress (fileSize, fileSize);
+	emit finished ();
 }
 
 void FileParser::stop()

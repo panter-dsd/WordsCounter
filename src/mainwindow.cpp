@@ -80,7 +80,8 @@ void MainWindow::updateButtons()
 										 ? tr ("Stop calculate")
 										 : tr ("Start calculate")
 										);
-	ui_->saveResult_->setEnabled (isFileSelected);
+	ui_->saveResult_->setEnabled (!fileParser_->isRunning()
+								  && !wordsCounter_->isEmpty());
 }
 
 void MainWindow::closeEvent (QCloseEvent *e)

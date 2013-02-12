@@ -28,7 +28,7 @@ protected:
 private:
 	Q_DISABLE_COPY (MainWindow)
 	
-	int calculateEta () const;
+	int calculateEta (int elapsed) const;
 
 private Q_SLOTS:
 	void updateWindowTitle ();

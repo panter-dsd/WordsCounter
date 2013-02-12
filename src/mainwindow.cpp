@@ -134,9 +134,15 @@ void MainWindow::updateProgress (bool forceUpdate)
 		}
 	}
 
-	ui_->wordsCountLabel_->setText (QString::number (wordsCounter_->wordsCount()));
-	ui_->etaLabel_->setText (QTime().addSecs (calculateEta()).toString ("hh:mm:ss"));
+	const QDateTime current = QDateTime::currentDateTime();
 
+	const int elapsed = started_->msecsTo (current);
+
+	ui_->wordsCountLabel_->setText (QString::number (wordsCounter_->wordsCount()));
+
+	ui_->workedTimeLabel_->setText (QTime().addMSecs (elapsed).toString ("hh:mm:ss"));
+
+	ui_->etaLabel_->setText (QTime().addMSecs (calculateEta (elapsed)).toString ("hh:mm:ss"));
 
 	int row = 0;
 
@@ -151,17 +157,13 @@ void MainWindow::updateProgress (bool forceUpdate)
 	}
 }
 
-int MainWindow::calculateEta () const
+int MainWindow::calculateEta (int elapsed) const
 {
-	const QDateTime current = QDateTime::currentDateTime();
-
-	const int elapsed = started_->msecsTo (current);
-
 	const int progress = std::max (1, ui_->progressBar_->value());
 	const int total = ui_->progressBar_->maximum ();
 	const int eta = static_cast<double> (elapsed) * (total - progress) / progress ;
 
-	return eta / 1000;
+	return eta;
 }
 
 
@@ -171,7 +173,6 @@ void MainWindow::startWork()
 		qDebug() << "Start";
 		wordsCounter_->clear ();
 		*started_ =  QDateTime::currentDateTime ();
-		ui_->startedLabel_->setText (started_->toString ("dd.MM.yyyy hh:mm:ss"));
 		QMetaObject::invokeMethod (fileParser_, "start");
 	} else {
 		qDebug() << "Stop";

@@ -109,6 +109,11 @@ void MainWindow::selectFile()
 		ui_->progressBar_->setRange (0, fileParser_->size ());
 		updateWindowTitle ();
 		updateButtons ();
+	} else {
+		QMessageBox::critical (this,
+							   tr ("Open file"),
+							   tr ("File not select or size is 0")
+							  );
 	}
 }
 
@@ -190,6 +195,13 @@ void MainWindow::startWork()
 void MainWindow::workFinished()
 {
 	updateProgress (true);
+
+	if (!fileParser_->lastError().isEmpty()) {
+		QMessageBox::critical (this,
+							   QString(),
+							   fileParser_->lastError()
+							  );
+	}
 }
 
 void MainWindow::saveResult()

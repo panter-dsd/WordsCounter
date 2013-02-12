@@ -70,7 +70,7 @@
          <item row="1" column="1">
           <widget class="QLabel" name="workedTimeLabel_">
            <property name="text">
-            <string>TextLabel</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -84,7 +84,7 @@
          <item row="0" column="1">
           <widget class="QLabel" name="wordsCountLabel_">
            <property name="text">
-            <string>TextLabel</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -98,7 +98,7 @@
          <item row="2" column="1">
           <widget class="QLabel" name="etaLabel_">
            <property name="text">
-            <string>TextLabel</string>
+            <string/>
            </property>
           </widget>
          </item>

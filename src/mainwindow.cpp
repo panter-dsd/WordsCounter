@@ -5,6 +5,8 @@
 
 #include <QtCore/QThread>
 #include <QtCore/QDateTime>
+#include <QtCore/QDebug>
+#include <QtCore/QMetaObject>
 
 #include <QtGui/QCloseEvent>
 #include <QtGui/QFileDialog>
@@ -34,14 +36,12 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	connect (ui_->changeCalculateState_,
 			 SIGNAL (clicked ()),
 			 SLOT (startWork()));
-	connect (ui_->changeCalculateState_, SIGNAL (clicked ()),
-			 wordsCounter_, SLOT (clear()));
-	connect (ui_->changeCalculateState_, SIGNAL (clicked ()),
-			 fileParser_, SLOT (start()));
-
+	/*
 	connect (wordsCounter_,
 			 SIGNAL (wordsChanged()),
-			 SLOT (updateProgress()));
+			 SLOT (updateProgress()));*/
+	connect (fileParser_, SIGNAL (started()), SLOT (updateButtons()));
+	connect (fileParser_, SIGNAL (finished()), SLOT (updateButtons()));
 
 	init ();
 	updateWindowTitle();
@@ -73,6 +73,10 @@ void MainWindow::updateButtons()
 {
 	const bool isFileSelected = !fileParser_->fileName().isEmpty();
 	ui_->changeCalculateState_->setEnabled (isFileSelected);
+	ui_->changeCalculateState_->setText (fileParser_->isRunning ()
+										 ? tr ("Stop calculate")
+										 : tr ("Start calculate")
+										);
 	ui_->saveResult_->setEnabled (isFileSelected);
 }
 
@@ -137,6 +141,16 @@ void MainWindow::updateProgress()
 
 void MainWindow::startWork()
 {
-	*started_ =  QDateTime::currentDateTime ();
-	ui_->startedLabel_->setText (started_->toString ("dd.MM.yyyy hh:mm:ss"));
+	if (!fileParser_->isRunning()) {
+		qDebug() << "Start";
+		wordsCounter_->clear ();
+		*started_ =  QDateTime::currentDateTime ();
+		ui_->startedLabel_->setText (started_->toString ("dd.MM.yyyy hh:mm:ss"));
+		QMetaObject::invokeMethod (fileParser_, "start");
+	} else {
+		qDebug() << "Stop";
+		fileParser_->stop ();
+	}
+
+	updateButtons ();
 }

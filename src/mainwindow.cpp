@@ -135,10 +135,8 @@ void MainWindow::updateProgress (bool forceUpdate)
 	}
 
 	ui_->wordsCountLabel_->setText (QString::number (wordsCounter_->wordsCount()));
+	ui_->etaLabel_->setText (QTime().addSecs (calculateEta()).toString ("hh:mm:ss"));
 
-	const QDateTime current = QDateTime::currentDateTime();
-
-	const int elapsed = started_->secsTo (current);
 
 	int row = 0;
 
@@ -152,6 +150,20 @@ void MainWindow::updateProgress (bool forceUpdate)
 		++row;
 	}
 }
+
+int MainWindow::calculateEta () const
+{
+	const QDateTime current = QDateTime::currentDateTime();
+
+	const int elapsed = started_->msecsTo (current);
+
+	const int progress = std::max (1, ui_->progressBar_->value());
+	const int total = ui_->progressBar_->maximum ();
+	const int eta = static_cast<double> (elapsed) * (total - progress) / progress ;
+
+	return eta / 1000;
+}
+
 
 void MainWindow::startWork()
 {

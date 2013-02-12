@@ -119,7 +119,7 @@ void MainWindow::selectFile()
 
 void MainWindow::updateWindowTitle()
 {
-	QString title = tr ("Worlds parser");
+	QString title = tr ("Words counter");
 
 	const QString fileName = fileParser_->fileName ();
 
@@ -203,6 +203,7 @@ void MainWindow::workFinished()
 							  );
 	}
 }
+
 
 void MainWindow::saveResult()
 {

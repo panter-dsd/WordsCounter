@@ -75,7 +75,6 @@ void FileParser::start()
 
 	if (!file.open (QIODevice::ReadOnly)) {
 		lastError_ = file.errorString ();
-		running_ = false;
 		emit finished ();
 		return;
 	}

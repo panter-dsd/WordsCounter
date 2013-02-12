@@ -68,16 +68,17 @@ void FileParser::start()
 
 	running_ = true;
 	SetToFalse setToFalse (running_);
-	
+
 	emit started ();
 
 	QFile file (fileName_);
-	
+
 	const int fileSize = file.size ();
 
 	if (!file.open (QIODevice::ReadOnly)) {
 		lastError_ = file.errorString ();
 		running_ = false;
+		emit finished ();
 		return;
 	}
 
@@ -98,7 +99,7 @@ void FileParser::start()
 
 		parseLine (&buffer [0], readed);
 	}
-	
+
 	emit progress (fileSize, fileSize);
 	emit finished ();
 }

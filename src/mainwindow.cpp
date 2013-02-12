@@ -17,6 +17,8 @@
 #include "ui_mainwindow.h"
 #include "mainwindow.h"
 
+enum {UpdateInterval = 100};
+
 MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow (parent, flags)
 	, ui_ (new Ui::MainWindow)
@@ -36,12 +38,13 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 	connect (ui_->changeCalculateState_,
 			 SIGNAL (clicked ()),
 			 SLOT (startWork()));
-	/*
+
 	connect (wordsCounter_,
 			 SIGNAL (wordsChanged()),
-			 SLOT (updateProgress()));*/
+			 SLOT (updateProgress()));
 	connect (fileParser_, SIGNAL (started()), SLOT (updateButtons()));
 	connect (fileParser_, SIGNAL (finished()), SLOT (updateButtons()));
+	connect (fileParser_, SIGNAL (finished()), SLOT (workFinished()));
 
 	init ();
 	updateWindowTitle();
@@ -117,14 +120,25 @@ void MainWindow::updateWindowTitle()
 	setWindowTitle (title);
 }
 
-void MainWindow::updateProgress()
+void MainWindow::updateProgress (bool forceUpdate)
 {
+	static QTime lastUpdate = QTime::currentTime ();
+
+	if (!forceUpdate) {
+		const QTime time = QTime::currentTime ();
+
+		if (lastUpdate.msecsTo (time) > UpdateInterval) {
+			lastUpdate = time;
+		} else {
+			return;
+		}
+	}
+
 	ui_->wordsCountLabel_->setText (QString::number (wordsCounter_->wordsCount()));
 
 	const QDateTime current = QDateTime::currentDateTime();
 
 	const int elapsed = started_->secsTo (current);
-
 
 	int row = 0;
 
@@ -153,4 +167,9 @@ void MainWindow::startWork()
 	}
 
 	updateButtons ();
+}
+
+void MainWindow::workFinished()
+{
+	updateProgress (true);
 }

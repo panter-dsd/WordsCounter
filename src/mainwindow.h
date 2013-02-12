@@ -33,8 +33,9 @@ private Q_SLOTS:
 	void updateButtons ();
 	void selectFile ();
 
-	void updateProgress ();
+	void updateProgress (bool forceUpdate = false);
 	void startWork ();
+	void workFinished ();
 
 private:
 	void init ();

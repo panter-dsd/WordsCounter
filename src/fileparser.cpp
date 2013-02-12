@@ -73,14 +73,14 @@ void FileParser::start()
 
 	QFile file (fileName_);
 
-	const int fileSize = file.size ();
-
 	if (!file.open (QIODevice::ReadOnly)) {
 		lastError_ = file.errorString ();
 		running_ = false;
 		emit finished ();
 		return;
 	}
+	
+	const int fileSize = file.size ();
 
 	typedef std::vector<char> Buffer;
 

@@ -35,6 +35,8 @@ MainWindow::MainWindow (QWidget *parent, Qt::WindowFlags flags)
 			 SIGNAL (clicked ()),
 			 SLOT (startWork()));
 	connect (ui_->changeCalculateState_, SIGNAL (clicked ()),
+			 wordsCounter_, SLOT (clear()));
+	connect (ui_->changeCalculateState_, SIGNAL (clicked ()),
 			 fileParser_, SLOT (start()));
 
 	connect (wordsCounter_,

@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/">
+	  <file>share/translations/WordsCounter_ru.qm</file>
+  </qresource>
+</RCC>

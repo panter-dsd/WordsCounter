@@ -29,12 +29,28 @@ SET(WordsCounter_UI
 QT4_WRAP_CPP(MOC_SOURCES ${WordsCounter_HEADRES})
 QT4_WRAP_UI(UI_HEADERS ${WordsCounter_UI})
 
+SET(RESOURCES resource.qrc)
+
+QT4_ADD_RESOURCES(QRC_SOURCES ${RESOURCES})
+
 ADD_EXECUTABLE(WordsCounter
     ${WordsCounter_SORCES}
     ${MOC_SOURCES}
     ${UI_HEADERS}
+    ${QRC_SOURCES}
 )
 
 TARGET_LINK_LIBRARIES(WordsCounter ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+
+ADD_CUSTOM_COMMAND(
+    TARGET WordsCounter
+    PRE_BUILD
+    COMMAND lupdate
+    ARGS -no-obsolete -target-language ru -recursive . -ts share/translations/WordsCounter_ru.ts
+    COMMAND lrelease
+    ARGS share/translations/WordsCounter_ru.ts
+
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
 INSTALL(TARGETS WordsCounter RUNTIME DESTINATION bin)

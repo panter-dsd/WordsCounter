@@ -28,6 +28,8 @@ public:
 	explicit WordsCounter (QObject *parent = 0);
 	virtual ~WordsCounter();
 
+	bool isEmpty () const;
+
 	int wordsCount () const;
 	QStringList topList () const;
 
@@ -35,6 +37,7 @@ Q_SIGNALS:
 	void wordsChanged ();
 
 public Q_SLOTS:
+	void clear ();
 	void appendWord (const QString &word);
 
 private:

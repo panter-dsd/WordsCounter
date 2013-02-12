@@ -84,3 +84,14 @@ QStringList WordsCounter::topList() const
 
 	return result;
 }
+
+bool WordsCounter::isEmpty () const
+{
+	return words_.isEmpty ();
+}
+
+void WordsCounter::clear ()
+{
+	topList_.clear ();
+	words_.clear ();
+}

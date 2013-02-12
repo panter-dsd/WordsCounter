@@ -90,12 +90,20 @@ void MainWindow::updateButtons()
 
 void MainWindow::closeEvent (QCloseEvent *e)
 {
-	for (Threads::const_iterator it = threads_.begin(),
-			end = threads_.end(); it != end; ++it) {
-		(*it)->quit ();
-	}
+	if (fileParser_->isRunning()) {
+		QMessageBox::critical (this,
+							   QString(),
+							   tr ("Stop before quit")
+							  );
+		e->ignore ();
+	} else {
+		for (Threads::const_iterator it = threads_.begin(),
+				end = threads_.end(); it != end; ++it) {
+			(*it)->quit ();
+		}
 
-	QWidget::closeEvent (e);
+		QWidget::closeEvent (e);
+	}
 }
 
 void MainWindow::selectFile()

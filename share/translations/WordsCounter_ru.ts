@@ -13,7 +13,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../../src/mainwindow.ui" line="14"/>
-        <location filename="../../src/mainwindow.cpp" line="122"/>
+        <location filename="../../src/mainwindow.cpp" line="130"/>
         <source>Words counter</source>
         <translation>Счетчик слов</translation>
     </message>
@@ -29,9 +29,9 @@
         <translation>Запустить подсчет</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="211"/>
         <location filename="../../src/mainwindow.cpp" line="219"/>
-        <location filename="../../src/mainwindow.cpp" line="224"/>
+        <location filename="../../src/mainwindow.cpp" line="227"/>
+        <location filename="../../src/mainwindow.cpp" line="232"/>
         <source>Save result</source>
         <translation>Сохранение результата</translation>
     </message>
@@ -71,23 +71,28 @@
         <translation>Остановить подсчет</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="104"/>
-        <location filename="../../src/mainwindow.cpp" line="114"/>
+        <location filename="../../src/mainwindow.cpp" line="96"/>
+        <source>Stop before quit</source>
+        <translation>Остановите обработку перед закрытием</translation>
+    </message>
+    <message>
+        <location filename="../../src/mainwindow.cpp" line="112"/>
+        <location filename="../../src/mainwindow.cpp" line="122"/>
         <source>Open file</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="115"/>
+        <location filename="../../src/mainwindow.cpp" line="123"/>
         <source>File not select or size is 0</source>
         <translation>Файл не выбран или его размер равен нулю</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="220"/>
+        <location filename="../../src/mainwindow.cpp" line="228"/>
         <source>Result is saved</source>
         <translation>Результат сохранен</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.cpp" line="225"/>
+        <location filename="../../src/mainwindow.cpp" line="233"/>
         <source>Error save result</source>
         <translation>Ошибка сохранения результата</translation>
     </message>

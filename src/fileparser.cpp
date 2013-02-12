@@ -45,16 +45,16 @@ QString FileParser::lastError() const
 	return lastError_;
 }
 
-class SetToFalse
+class SetToFalseOnDestroy
 {
 public:
-	SetToFalse (bool &value) : value_ (value) {}
-	~SetToFalse () {
+	SetToFalseOnDestroy (bool &value) : value_ (value) {}
+	~SetToFalseOnDestroy () {
 		value_ = false;
 	}
 
 private:
-	Q_DISABLE_COPY (SetToFalse)
+	Q_DISABLE_COPY (SetToFalseOnDestroy)
 
 private:
 	bool &value_;
@@ -67,7 +67,7 @@ void FileParser::start()
 	}
 
 	running_ = true;
-	SetToFalse setToFalse (running_);
+	SetToFalseOnDestroy setToFalse (running_);
 
 	emit started ();
 

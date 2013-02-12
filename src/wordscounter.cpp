@@ -124,3 +124,4 @@ bool WordsCounter::saveResult (const QString &fileName) const
 
 	return true;
 }
+

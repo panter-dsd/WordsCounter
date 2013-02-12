@@ -17,6 +17,10 @@ public:
 	explicit FileParser (QObject *parent = 0);
 	virtual ~FileParser ();
 
+	bool isRunning () const {
+		return running_;
+	}
+
 	QString lastError () const;
 
 	QString fileName () const;
@@ -27,6 +31,7 @@ public:
 Q_SIGNALS:
 	void wordFound (const QString &word);
 	void progress (int current, int total);
+	void started ();
 	void finished ();
 
 public Q_SLOTS:
